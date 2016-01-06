@@ -5,13 +5,13 @@ import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
 import java.util.Random;
+import java.util.Vector;
 
 /**
  * Created by MingJe on 2016/1/6.
@@ -62,14 +62,16 @@ public class SHSystem {
                 rowData[i][1] = String.valueOf("no definition");
             }
         }
-        JTable labelMapTable = new JTable(rowData, columnDef){
+        JTable labelMapTable = new JTable(rowData, columnDef) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 if (column == 0)
                     return false;
                 return true;
             }
+
         };
+        shSystemPanel.setLabelMapTable(labelMapTable);
         DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
         dtcr.setHorizontalTextPosition(SwingConstants.CENTER);
         TableColumnModel tableColumn = labelMapTable.getColumnModel();
@@ -92,7 +94,7 @@ public class SHSystem {
                         null,
                         options,
                         options[1]);
-                if (n == 0) {
+                if (n == 0 && row != -1) {
                     labelMapping.put(row, (String) labelMapTable.getValueAt(row, col));
                     System.out.println(labelMapping.get(row));
                 }
@@ -121,7 +123,7 @@ public class SHSystem {
                             int newProgress = classifierAgent.getTrainState() + random.nextInt(50);
                             if (newProgress > progress)
                                 progress = newProgress;
-                            setProgress(Math.min(100,progress));
+                            setProgress(Math.min(100, progress));
                         }
                     } catch (InterruptedException ignore) {
                     }
@@ -177,6 +179,7 @@ public class SHSystem {
                 {
                     if (isRecognize) {
                         shSystemPanel.getRecognizeButton().setText("Recognize Off");
+                        recongnize("");
                         isRecognize = !isRecognize;
                     } else {
                         shSystemPanel.getRecognizeButton().setText("Recognize On");
@@ -192,7 +195,27 @@ public class SHSystem {
     }
 
     public void recongnize(String data) {
-        classifierAgent.recognize(data);
+        int act = classifierAgent.recognize(data);
+        //int act = 0;
+        Map<Integer, String> labelMap = classifierAgent.getLabelMapping();
+        String s = labelMap.get(act);
+        if (s == null) {
+            s = (String) JOptionPane.showInputDialog(
+                    frame,
+                    "<html>Now recognize activity is" + act +
+                            "<br />Enter your semantic meaning:\n",
+                    "Enter semantic meaning</html>",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    null,
+                    null);
+            labelMap.put(act, s);
+            System.out.println(s);
+            shSystemPanel.getLabelMapTable().setValueAt(s, act, 1);
+        }
+        shSystemPanel.getMessageLabel().setText("<html><h2>Recognized Activity is " + s);
+
+
     }
 
     public static void main(String[] args) {
