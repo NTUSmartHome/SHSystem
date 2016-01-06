@@ -2,6 +2,8 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +18,16 @@ public class SHSystemPanel {
     private JPanel bottomPanel;
     private JButton trainButton;
     private JButton recognizeButton;
+    private JLabel messageLabel;
     private JTable labelMapTable;
+
+    public JLabel getMessageLabel() {
+        return messageLabel;
+    }
+
+    public SHSystemPanel() {
+
+    }
 
     public JPanel getMainPanel() {
         return mainPanel;
