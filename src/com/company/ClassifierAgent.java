@@ -15,6 +15,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class ClassifierAgent {
 
@@ -25,9 +26,9 @@ public class ClassifierAgent {
 
     private int trainState;
 
-    private Map<Integer, String> labelMapping;
+    private Map<String, String> labelMapping;
 
-    public void train() {
+    public String train() {
 
         try {
             trainState = 0;
@@ -38,7 +39,7 @@ public class ClassifierAgent {
             // Training
             long startTime = System.currentTimeMillis();
             cModel.buildClassifier(trainingSet);
-            trainState = 40;
+            //trainState = 40;
             Evaluation eTest = new Evaluation(trainingSet);
             // CrossValidate
             eTest.crossValidateModel(cModel, trainingSet, 10, new Debug.Random(1));
@@ -48,12 +49,15 @@ public class ClassifierAgent {
             System.out.println(strSummary);
 
             // Get the confusion matrix
+            StringBuilder confusionMatrix = new StringBuilder();
             double[][] cmMatrix = eTest.confusionMatrix();
             for (int row_i = 0; row_i < cmMatrix.length; row_i++) {
                 for (int col_i = 0; col_i < cmMatrix.length; col_i++) {
                     System.out.print(cmMatrix[row_i][col_i]);
                     System.out.print("|");
+                    confusionMatrix.append(cmMatrix[row_i][col_i] + "|");
                 }
+                confusionMatrix.append("\n");
                 System.out.println();
             }
             trainState = 90;
@@ -64,10 +68,11 @@ public class ClassifierAgent {
             fw.write(trainingSet.classAttribute().toString());
             fw.close();
             trainState = 100;
+            return confusionMatrix.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        return null;
 
     }
 
@@ -97,7 +102,7 @@ public class ClassifierAgent {
 
     }
 
-    public int recognize(String data) {
+    public String recognize(String data) {
 
         // Read model
         readModel();
@@ -117,11 +122,11 @@ public class ClassifierAgent {
         // Predict
         try {
             double prd = cModel.classifyInstance(inst);
-            return Integer.parseInt(attributes.get(attributes.size() - 1).value((int) prd));
+            return attributes.get(attributes.size() - 1).value((int) prd);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return -1;
+        return "";
         //System.out.println(attributes.get(attributes.size() - 1).value((int) prd));
     }
 
@@ -158,20 +163,22 @@ public class ClassifierAgent {
 
     }
 
-    public Map<Integer, String> labelMappingReader() {
+    public Map<String, String> labelMappingReader() {
         try {
             FileReader fr = new FileReader(new File("LabelMapping.txt"));
             BufferedReader br = new BufferedReader(fr);
-            Map<Integer, String> labelMapping = new HashMap<>();
+            Map<String, String> labelMapping = new HashMap<>();
             String line;
             while ((line = br.readLine()) != null) {
                 String[] labelNMap = line.split("\\s+");
-                labelMapping.put(Integer.parseInt(labelNMap[0]), labelNMap[1]);
+                if (labelNMap.length < 2) continue;
+                labelMapping.put(labelNMap[0], labelNMap[1]);
             }
             fr.close();
             br.close();
             return labelMapping;
         } catch (FileNotFoundException e) {
+            return new HashMap<>();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -218,7 +225,20 @@ public class ClassifierAgent {
         return attributes;
     }
 
-    public Map<Integer, String> getLabelMapping() {
+    public void saveLabelMapping() {
+        try {
+            FileWriter fw = new FileWriter("LabelMapping.txt");
+            Set<Map.Entry<String, String>> content = labelMapping.entrySet();
+            for (Map.Entry e : content) {
+                fw.write(e.getKey() + " " + e.getValue() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Map<String, String> getLabelMapping() {
         return labelMapping;
     }
 

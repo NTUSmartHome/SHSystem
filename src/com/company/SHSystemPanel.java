@@ -19,6 +19,7 @@ public class SHSystemPanel {
     private JButton trainButton;
     private JButton recognizeButton;
     private JLabel messageLabel;
+    private JButton exitButton;
     private JTable labelMapTable;
 
     public JLabel getMessageLabel() {
@@ -45,6 +46,9 @@ public class SHSystemPanel {
         return labelMapTable;
     }
 
+    public JButton getExitButton() {
+        return exitButton;
+    }
 
     public void setLabelMapTable(JTable labelMapTable) {
         this.labelMapTable = labelMapTable;
