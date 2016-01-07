@@ -28,6 +28,10 @@ public class ClassifierAgent {
 
     private Map<String, String> labelMapping;
 
+    public void setTrainState(int trainState) {
+        this.trainState = trainState;
+    }
+
     public String train() {
 
         try {

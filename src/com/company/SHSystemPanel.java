@@ -20,6 +20,7 @@ public class SHSystemPanel {
     private JButton recognizeButton;
     private JLabel messageLabel;
     private JButton exitButton;
+    private JLabel outsideMessageLabel;
     private JTable labelMapTable;
 
     public JLabel getMessageLabel() {
@@ -48,6 +49,10 @@ public class SHSystemPanel {
 
     public JButton getExitButton() {
         return exitButton;
+    }
+
+    public JLabel getOutsideMessageLabel() {
+        return outsideMessageLabel;
     }
 
     public void setLabelMapTable(JTable labelMapTable) {

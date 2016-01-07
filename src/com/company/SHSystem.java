@@ -14,7 +14,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
 import java.util.Random;
-import java.util.Vector;
 
 /**
  * Created by MingJe on 2016/1/6.
@@ -24,7 +23,8 @@ public class SHSystem {
     private JFrame frame;
     private SHSystemPanel shSystemPanel;
     private boolean isRecognize;
-
+    private SwingWorker progressWorker, trainWorker;
+    private ProgressMonitor progressMonitor;
     public SHSystem() {
         classifierAgent = new ClassifierAgent();
         shSystemPanel = new SHSystemPanel();
@@ -129,80 +129,10 @@ public class SHSystem {
 
         //Init train button
         shSystemPanel.getTrainButton().addActionListener(e -> {
-            shSystemPanel.getMessageLabel().setText("Training");
-            //Worker for progressbar
-            SwingWorker progressWorker = new SwingWorker() {
-                @Override
-                protected Object doInBackground() throws Exception {
-                    Random random = new Random();
-                    int progress = 0;
-                    setProgress(0);
-                    try {
-                        int dotCount = 0;
-                        StringBuilder trainState = new StringBuilder("Training");
-                        while (progress < 100 && !isCancelled()) {
-                            trainState.append(".");
-                            ++dotCount;
-                            if (dotCount == 5) {
-                                trainState = new StringBuilder("Training");
-                                dotCount = 0;
-                            }
-                            shSystemPanel.getMessageLabel().setText(trainState.toString());
-
-                            int newProgress = classifierAgent.getTrainState() + random.nextInt(70);
-                            if (newProgress > progress)
-                                progress = newProgress;
-                            setProgress(Math.min(100, progress));
-                            Thread.sleep(random.nextInt(1000));
-                        }
-                    } catch (InterruptedException ignore) {
-                    }
-                    return null;
-                }
-
-                @Override
-                protected void done() {
-                    super.done();
-                }
-            };
-            //Worker for training
-            SwingWorker trainWorker = new SwingWorker() {
-                @Override
-                protected Object doInBackground() throws Exception {
-                    Thread.sleep(1000);
-                    shSystemPanel.getTrainButton().setEnabled(false);
-                    String confusionMatrix = classifierAgent.train().replace("\n", "<br />");
-                    Thread.sleep(500);
-                    shSystemPanel.getMessageLabel().setText("<html>Train finished<br />" + confusionMatrix + "</html>");
-                    return null;
-                }
-            };
-            //Init ProgressMonitor
-            ProgressMonitor progressMonitor = new ProgressMonitor(frame, "Training",
-                    "", 0, 100);
+            initWorkers();
+            classifierAgent.setTrainState(0);
             progressMonitor.setProgress(progressWorker.getProgress());
-            progressWorker.addPropertyChangeListener(new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent evt) {
-                    if ("progress" == evt.getPropertyName()) {
-                        int progress = (Integer) evt.getNewValue();
-                        progressMonitor.setProgress(progress);
-                        String message =
-                                String.format("Completed %d%%.\n", progress);
-                        progressMonitor.setNote(message);
-                        if (progressMonitor.isCanceled() || classifierAgent.getTrainState() == 100) {
-                            progressMonitor.close();
-                            Toolkit.getDefaultToolkit().beep();
-                            if (progressMonitor.isCanceled()) {
-                                progressWorker.cancel(true);
-                                trainWorker.cancel(true);
-                                shSystemPanel.getMessageLabel().setText("<html>Train canceled</html>");
-                            }
-                            shSystemPanel.getTrainButton().setEnabled(true);
-                        }
-                    }
-                }
-            });
+            shSystemPanel.getMessageLabel().setText("Training");
             //Start two workers
             progressWorker.execute();
             trainWorker.execute();
@@ -225,6 +155,81 @@ public class SHSystem {
 
         //Init exit button
         shSystemPanel.getExitButton().addActionListener(e -> frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING)));
+
+        //Init ProgressMonitor
+        progressMonitor = new ProgressMonitor(frame, "Training",
+                "", 0, 100);
+    }
+
+    public void initWorkers() {
+        //Worker for progressbar
+        progressWorker = new SwingWorker() {
+            @Override
+            protected Object doInBackground() throws Exception {
+                Random random = new Random();
+                int progress = 0;
+                setProgress(0);
+                try {
+                    int dotCount = 0;
+                    StringBuilder trainState = new StringBuilder("Training");
+                    while (progress < 100 && !isCancelled()) {
+                        trainState.append(".");
+                        ++dotCount;
+                        if (dotCount == 5) {
+                            trainState = new StringBuilder("Training");
+                            dotCount = 0;
+                        }
+                        shSystemPanel.getMessageLabel().setText(trainState.toString());
+
+                        int newProgress = classifierAgent.getTrainState() + random.nextInt(70);
+                        if (newProgress > progress)
+                            progress = newProgress;
+                        setProgress(Math.min(100, progress));
+                        Thread.sleep(random.nextInt(1000));
+                    }
+                } catch (InterruptedException ignore) {
+                }
+                return null;
+            }
+
+        };
+        progressWorker.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if ("progress" == evt.getPropertyName()) {
+                    int progress = (Integer) evt.getNewValue();
+                    progressMonitor.setProgress(progress);
+                    String message =
+                            String.format("Completed %d%%.\n", progress);
+                    progressMonitor.setNote(message);
+                    if (progressMonitor.isCanceled() || classifierAgent.getTrainState() == 100) {
+                        progressMonitor.close();
+                        Toolkit.getDefaultToolkit().beep();
+                        if (progressMonitor.isCanceled()) {
+                            progressWorker.cancel(true);
+                            trainWorker.cancel(true);
+                            shSystemPanel.getMessageLabel().setText("<html>Train canceled</html>");
+                        }
+                        shSystemPanel.getTrainButton().setEnabled(true);
+                    }
+                }
+            }
+        });
+
+        //Worker for training
+        trainWorker = new SwingWorker() {
+            @Override
+            protected Object doInBackground() throws Exception {
+                Thread.sleep(1000);
+                shSystemPanel.getTrainButton().setEnabled(false);
+                String confusionMatrix = classifierAgent.train().replace("\n", "<br />");
+                Thread.sleep(500);
+                shSystemPanel.getMessageLabel().setText("<html>Train finished<br />" + confusionMatrix + "</html>");
+                return null;
+            }
+        };
+
+
     }
 
     public boolean isRecognize() {
@@ -253,6 +258,10 @@ public class SHSystem {
         shSystemPanel.getMessageLabel().setText("<html><h2>Recognized Activity is " + s);
 
 
+    }
+
+    public void setMessage(String message){
+        shSystemPanel.getOutsideMessageLabel().setText(message);
     }
 
     public static void main(String[] args) {
