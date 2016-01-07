@@ -23,8 +23,10 @@ public class SHSystem {
     private JFrame frame;
     private SHSystemPanel shSystemPanel;
     private boolean isRecognize;
+    private boolean isCollect;
     private SwingWorker progressWorker, trainWorker;
     private ProgressMonitor progressMonitor;
+
     public SHSystem() {
         classifierAgent = new ClassifierAgent();
         shSystemPanel = new SHSystemPanel();
@@ -83,14 +85,9 @@ public class SHSystem {
 
         };
         shSystemPanel.setLabelMapTable(labelMapTable);
-        //Set Table content align center
-        DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
-        dtcr.setHorizontalTextPosition(SwingConstants.CENTER);
-        TableColumnModel tableColumn = labelMapTable.getColumnModel();
-        tableColumn.getColumn(0).setCellRenderer(dtcr);
-        tableColumn.getColumn(1).setCellRenderer(dtcr);
+
         //Set Table detail
-        labelMapTable.setFont(new Font("Arial", Font.BOLD, 20));
+        labelMapTable.setFont(new Font("Courier New", Font.BOLD, 20));
         labelMapTable.setRowHeight(60);
         labelMapTable.setPreferredScrollableViewportSize(new Dimension(400, 400));
         labelMapTable.getModel().addTableModelListener(new TableModelListener() {
@@ -119,7 +116,7 @@ public class SHSystem {
 
         //Init messageLabel
         JLabel messageLabel = shSystemPanel.getMessageLabel();
-        messageLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        //messageLabel.setFont(new Font("Arial", Font.BOLD, 20));
         messageLabel.setText("<html>Please press the action button that you prefer " + "<br />" +
                 "1) Train, if you want have a new model" + "<br />" +
                 "2) Recognize, if you already have a model, and you want recognize your activity</html>");
@@ -127,8 +124,24 @@ public class SHSystem {
         messageLabel.setBorder(new EmptyBorder(0, 80, 0, 0));
         messageLabel.setBackground(Color.white);
 
+        //Init collect button
+        shSystemPanel.getCollectButton().addActionListener(e1 -> {
+            if (isCollect) {
+                shSystemPanel.getCollectButton().setBackground(null);
+                shSystemPanel.getMessageLabel().setText("Collect Off");
+                setMessage("Collect Off");
+                isCollect = !isCollect;
+            } else {
+                shSystemPanel.getCollectButton().setBackground(Color.red);
+                shSystemPanel.getMessageLabel().setText("Collect On");
+                setMessage("Collect On");
+                isCollect = !isCollect;
+            }
+        });
         //Init train button
         shSystemPanel.getTrainButton().addActionListener(e -> {
+            setMessage("Training");
+            shSystemPanel.getTrainButton().setEnabled(false);
             initWorkers();
             classifierAgent.setTrainState(0);
             progressMonitor.setProgress(progressWorker.getProgress());
@@ -137,17 +150,20 @@ public class SHSystem {
             progressWorker.execute();
             trainWorker.execute();
 
-
         });
 
         //Init recognize button
         shSystemPanel.getRecognizeButton().addActionListener(e ->
                 {
                     if (isRecognize) {
-                        shSystemPanel.getRecognizeButton().setText("Recognize Off");
+                        shSystemPanel.getRecognizeButton().setBackground(null);
+                        shSystemPanel.getMessageLabel().setText("Recognize Off");
+                        setMessage("Recognize Off");
                         isRecognize = !isRecognize;
                     } else {
-                        shSystemPanel.getRecognizeButton().setText("Recognize On");
+                        shSystemPanel.getRecognizeButton().setBackground(Color.RED);
+                        shSystemPanel.getMessageLabel().setText("Recognize On");
+                        setMessage("Recognize On");
                         isRecognize = !isRecognize;
                     }
                 }
@@ -173,6 +189,7 @@ public class SHSystem {
                     int dotCount = 0;
                     StringBuilder trainState = new StringBuilder("Training");
                     while (progress < 100 && !isCancelled()) {
+                        Thread.sleep(random.nextInt(1000));
                         trainState.append(".");
                         ++dotCount;
                         if (dotCount == 5) {
@@ -185,7 +202,7 @@ public class SHSystem {
                         if (newProgress > progress)
                             progress = newProgress;
                         setProgress(Math.min(100, progress));
-                        Thread.sleep(random.nextInt(1000));
+
                     }
                 } catch (InterruptedException ignore) {
                 }
@@ -203,14 +220,16 @@ public class SHSystem {
                             String.format("Completed %d%%.\n", progress);
                     progressMonitor.setNote(message);
                     if (progressMonitor.isCanceled() || classifierAgent.getTrainState() == 100) {
-                        progressMonitor.close();
+
                         Toolkit.getDefaultToolkit().beep();
                         if (progressMonitor.isCanceled()) {
                             progressWorker.cancel(true);
                             trainWorker.cancel(true);
                             shSystemPanel.getMessageLabel().setText("<html>Train canceled</html>");
+                            setMessage("Train cancel");
                         }
                         shSystemPanel.getTrainButton().setEnabled(true);
+                        progressMonitor.close();
                     }
                 }
             }
@@ -220,11 +239,12 @@ public class SHSystem {
         trainWorker = new SwingWorker() {
             @Override
             protected Object doInBackground() throws Exception {
-                Thread.sleep(1000);
-                shSystemPanel.getTrainButton().setEnabled(false);
+                Thread.sleep(2000);
                 String confusionMatrix = classifierAgent.train().replace("\n", "<br />");
-                Thread.sleep(500);
-                shSystemPanel.getMessageLabel().setText("<html>Train finished<br />" + confusionMatrix + "</html>");
+                while (!progressWorker.isDone());
+                shSystemPanel.getMessageLabel().setText("<html>Train finished<br />");
+                setMessage("Train finished");
+                setMessage(confusionMatrix);
                 return null;
             }
         };
@@ -260,8 +280,14 @@ public class SHSystem {
 
     }
 
-    public void setMessage(String message){
-        shSystemPanel.getOutsideMessageLabel().setText(message);
+    public void setMessage(String message) {
+        JLabel logLabel = shSystemPanel.getLogLabel();
+        logLabel.setText(logLabel.getText() + "<br/>" +message);
+        shSystemPanel.getLogScroll().validate();
+        JScrollBar verticalScrollBar = shSystemPanel.getLogScroll().getVerticalScrollBar();
+        verticalScrollBar.setValue( verticalScrollBar.getMaximum() );
+
+
     }
 
     public static void main(String[] args) {

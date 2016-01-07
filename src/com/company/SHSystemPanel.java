@@ -1,12 +1,6 @@
 package com.company;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by MingJe on 2016/1/5.
@@ -15,12 +9,13 @@ public class SHSystemPanel {
 
 
     private JPanel mainPanel;
-    private JPanel bottomPanel;
     private JButton trainButton;
     private JButton recognizeButton;
     private JLabel messageLabel;
     private JButton exitButton;
-    private JLabel outsideMessageLabel;
+    private JButton collectButton;
+    private JLabel logLabel;
+    private JScrollPane LogScroll;
     private JTable labelMapTable;
 
     public JLabel getMessageLabel() {
@@ -31,6 +26,9 @@ public class SHSystemPanel {
 
     }
 
+    public JScrollPane getLogScroll() {
+        return LogScroll;
+    }
     public JPanel getMainPanel() {
         return mainPanel;
     }
@@ -51,13 +49,16 @@ public class SHSystemPanel {
         return exitButton;
     }
 
-    public JLabel getOutsideMessageLabel() {
-        return outsideMessageLabel;
+    public JLabel getLogLabel() {
+        return logLabel;
+    }
+
+    public JButton getCollectButton() {
+        return collectButton;
     }
 
     public void setLabelMapTable(JTable labelMapTable) {
         this.labelMapTable = labelMapTable;
-
     }
 
     public static void main(String[] args) {
