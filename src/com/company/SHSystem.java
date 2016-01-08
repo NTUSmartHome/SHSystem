@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.security.Timestamp;
 import java.util.Map;
 import java.util.Random;
 
@@ -57,9 +58,82 @@ public class SHSystem {
             JOptionPane.showMessageDialog(frame, "Don't have attribute config, you should set it first");
         } else if (trained == 2) {
             JOptionPane.showMessageDialog(frame, "Don't have model, you should train it first");
+            //Init labelMapping table
+            //initLabelMapping();
         } else if (trained == 3) {
-
+            //Init labelMapping table
+            // initLabelMapping();
         }
+
+
+        //Init messageLabel
+        JLabel messageLabel = shSystemPanel.getMessageLabel();
+        //messageLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        messageLabel.setText("<html>Please press the action button that you prefer " + "<br />" +
+                "1) Train, if you want have a new model" + "<br />" +
+                "2) Recognize, if you already have a model, and you want recognize your activity</html>");
+        //messageLabel.setPreferredSize(new Dimension(800, 200));
+        //messageLabel.setBorder(new EmptyBorder(0, 80, 0, 0));
+        messageLabel.setBackground(Color.white);
+
+        //Init collect button
+        shSystemPanel.getCollectButton().addActionListener(e1 -> {
+            if (isCollect) {
+                shSystemPanel.getCollectButton().setBackground(null);
+                shSystemPanel.getMessageLabel().setText("Collect Off");
+                setMessage("Collect Off");
+                isCollect = !isCollect;
+                if (shSystemPanel.getLabelMapTable() != null)
+                    frame.remove(shSystemPanel.getLabelMapTable());
+                initLabelMapping();
+            } else {
+                shSystemPanel.getCollectButton().setBackground(Color.red);
+                shSystemPanel.getMessageLabel().setText("Collect On");
+                setMessage("Collect On");
+                isCollect = !isCollect;
+            }
+        });
+        //Init train button
+        shSystemPanel.getTrainButton().addActionListener(e -> {
+            setMessage("Training");
+            shSystemPanel.getTrainButton().setEnabled(false);
+            initWorkers();
+            classifierAgent.setTrainState(0);
+            progressMonitor.setProgress(progressWorker.getProgress());
+            shSystemPanel.getMessageLabel().setText("Training");
+            //Start two workers
+            progressWorker.execute();
+            trainWorker.execute();
+
+        });
+
+        //Init recognize button
+        shSystemPanel.getRecognizeButton().addActionListener(e ->
+                {
+                    if (isRecognize) {
+                        shSystemPanel.getRecognizeButton().setBackground(null);
+                        shSystemPanel.getMessageLabel().setText("Recognize Off");
+                        setMessage("Recognize Off");
+                        isRecognize = !isRecognize;
+                    } else {
+                        shSystemPanel.getRecognizeButton().setBackground(Color.RED);
+                        shSystemPanel.getMessageLabel().setText("Recognize On");
+                        setMessage("Recognize On");
+                        isRecognize = !isRecognize;
+                    }
+                }
+        );
+
+        //Init exit button
+        shSystemPanel.getExitButton().addActionListener(e -> frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING)));
+
+        //Init ProgressMonitor
+        progressMonitor = new ProgressMonitor(frame, "Training",
+                "", 0, 100);
+    }
+
+    public void initLabelMapping() {
+
         // Organize the label map table
         String[] columnDef = {"<html><h2>Pseudo label", "<html><h2>Semantic label (double click to edit)"};
         Map<String, String> labelMapping = classifierAgent.getLabelMapping();
@@ -113,68 +187,6 @@ public class SHSystem {
         });
         JScrollPane scrollPane = new JScrollPane(labelMapTable);
         frame.add(scrollPane, BorderLayout.NORTH);
-
-        //Init messageLabel
-        JLabel messageLabel = shSystemPanel.getMessageLabel();
-        //messageLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        messageLabel.setText("<html>Please press the action button that you prefer " + "<br />" +
-                "1) Train, if you want have a new model" + "<br />" +
-                "2) Recognize, if you already have a model, and you want recognize your activity</html>");
-        messageLabel.setPreferredSize(new Dimension(800, 200));
-        messageLabel.setBorder(new EmptyBorder(0, 80, 0, 0));
-        messageLabel.setBackground(Color.white);
-
-        //Init collect button
-        shSystemPanel.getCollectButton().addActionListener(e1 -> {
-            if (isCollect) {
-                shSystemPanel.getCollectButton().setBackground(null);
-                shSystemPanel.getMessageLabel().setText("Collect Off");
-                setMessage("Collect Off");
-                isCollect = !isCollect;
-            } else {
-                shSystemPanel.getCollectButton().setBackground(Color.red);
-                shSystemPanel.getMessageLabel().setText("Collect On");
-                setMessage("Collect On");
-                isCollect = !isCollect;
-            }
-        });
-        //Init train button
-        shSystemPanel.getTrainButton().addActionListener(e -> {
-            setMessage("Training");
-            shSystemPanel.getTrainButton().setEnabled(false);
-            initWorkers();
-            classifierAgent.setTrainState(0);
-            progressMonitor.setProgress(progressWorker.getProgress());
-            shSystemPanel.getMessageLabel().setText("Training");
-            //Start two workers
-            progressWorker.execute();
-            trainWorker.execute();
-
-        });
-
-        //Init recognize button
-        shSystemPanel.getRecognizeButton().addActionListener(e ->
-                {
-                    if (isRecognize) {
-                        shSystemPanel.getRecognizeButton().setBackground(null);
-                        shSystemPanel.getMessageLabel().setText("Recognize Off");
-                        setMessage("Recognize Off");
-                        isRecognize = !isRecognize;
-                    } else {
-                        shSystemPanel.getRecognizeButton().setBackground(Color.RED);
-                        shSystemPanel.getMessageLabel().setText("Recognize On");
-                        setMessage("Recognize On");
-                        isRecognize = !isRecognize;
-                    }
-                }
-        );
-
-        //Init exit button
-        shSystemPanel.getExitButton().addActionListener(e -> frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING)));
-
-        //Init ProgressMonitor
-        progressMonitor = new ProgressMonitor(frame, "Training",
-                "", 0, 100);
     }
 
     public void initWorkers() {
@@ -241,7 +253,7 @@ public class SHSystem {
             protected Object doInBackground() throws Exception {
                 Thread.sleep(2000);
                 String confusionMatrix = classifierAgent.train().replace("\n", "<br />");
-                while (!progressWorker.isDone());
+                while (!progressWorker.isDone()) ;
                 shSystemPanel.getMessageLabel().setText("<html>Train finished<br />");
                 setMessage("Train finished");
                 setMessage(confusionMatrix);
@@ -275,17 +287,23 @@ public class SHSystem {
             System.out.println(s);
             shSystemPanel.getLabelMapTable().setValueAt(s, Integer.parseInt(act), 1);
         }
-        shSystemPanel.getMessageLabel().setText("<html><h2>Recognized Activity is " + s);
+        shSystemPanel.getMessageLabel().setText("<html>"+ "Recognized Activity is " + s);
 
 
     }
 
     public void setMessage(String message) {
+
         JLabel logLabel = shSystemPanel.getLogLabel();
-        logLabel.setText(logLabel.getText() + "<br/>" +message);
+        logLabel.setText(logLabel.getText() + "<br/>" + message);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         shSystemPanel.getLogScroll().validate();
         JScrollBar verticalScrollBar = shSystemPanel.getLogScroll().getVerticalScrollBar();
-        verticalScrollBar.setValue( verticalScrollBar.getMaximum() );
+        verticalScrollBar.setValue(verticalScrollBar.getMaximum());
 
 
     }

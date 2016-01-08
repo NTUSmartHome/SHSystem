@@ -17,7 +17,7 @@ public class SHSystemPanel {
     private JLabel logLabel;
     private JScrollPane LogScroll;
     private JTable labelMapTable;
-
+    private JPanel bottomPanel;
     public JLabel getMessageLabel() {
         return messageLabel;
     }
