@@ -291,7 +291,9 @@ public class SHSystem {
 
 
     }
-
+    public boolean isCollect(){
+        return isCollect;
+    }
     public void setMessage(String message) {
 
         JLabel logLabel = shSystemPanel.getLogLabel();
