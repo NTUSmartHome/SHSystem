@@ -59,10 +59,10 @@ public class SHSystem {
         } else if (trained == 2) {
             JOptionPane.showMessageDialog(frame, "Don't have model, you should train it first");
             //Init labelMapping table
-            //initLabelMapping();
+            initLabelMapping();
         } else if (trained == 3) {
             //Init labelMapping table
-            // initLabelMapping();
+            initLabelMapping();
         }
 
 
@@ -287,13 +287,18 @@ public class SHSystem {
             System.out.println(s);
             shSystemPanel.getLabelMapTable().setValueAt(s, Integer.parseInt(act), 1);
         }
-        shSystemPanel.getMessageLabel().setText("<html>"+ "Recognized Activity is " + s);
-
+        String message = "<html>" +
+                new java.sql.Timestamp(System.currentTimeMillis()) +
+                "<br />Recognized Activity is <h1>" + s + "</h1>";
+        shSystemPanel.getMessageLabel().setText(message);
+        setMessage(message);
 
     }
-    public boolean isCollect(){
+
+    public boolean isCollect() {
         return isCollect;
     }
+
     public void setMessage(String message) {
 
         JLabel logLabel = shSystemPanel.getLogLabel();
