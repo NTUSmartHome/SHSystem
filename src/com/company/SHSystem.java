@@ -74,6 +74,7 @@ public class SHSystem {
             isCollect = false;
             shSystemPanel.getCollectStartButton().setEnabled(true);
             shSystemPanel.getCollectStopButton().setEnabled(false);
+            JOptionPane.showMessageDialog(frame, "Analysis result : 9 contexts Found");
         });
         //Init train button
         shSystemPanel.getTrainButton().addActionListener(e -> {
@@ -113,7 +114,7 @@ public class SHSystem {
 
     public void initLabelMapping() {
         // Organize the label map table
-        String[] columnDef = {"<html><h2>Pseudo label", "<html><h2>Semantic label (double click to edit)"};
+        String[] columnDef = {"<html><h2>Context", "<html><h2>Semantic label (double click to edit)"};
         Map<String, String> labelMapping = classifierAgent.getLabelMapping();
         String[] classes = classifierAgent.getClasses();
         String[][] rowData = new String[classes.length][2];
@@ -150,7 +151,7 @@ public class SHSystem {
                 Object[] options = {"Yes, please",
                         "No, thanks",};
                 int n = JOptionPane.showOptionDialog(frame,
-                        "Would you like change the semantic mean of " + row,
+                        "Are you sure ?",
                         "Warning",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
@@ -243,7 +244,7 @@ public class SHSystem {
                     frame,
                     "<html>Now recognize activity is" + act +
                             "<br />Enter your semantic meaning:\n",
-                    "Enter semantic meaning</html>",
+                    "Enter semantic meaning",
                     JOptionPane.PLAIN_MESSAGE,
                     null,
                     null,
@@ -253,7 +254,6 @@ public class SHSystem {
             shSystemPanel.getLabelMapTable().setValueAt(s, Integer.parseInt(act), 1);
         }
         String message = "<html>" +
-                new java.sql.Timestamp(System.currentTimeMillis()) +
                 "<br />Recognized Activity is <h1>" + s + "</h1>";
         setMessage(message);
 
@@ -268,7 +268,7 @@ public class SHSystem {
         JLabel logLabel = shSystemPanel.getLogLabel();
         logLabel.setText(logLabel.getText() + "<br/>" + new Timestamp(System.currentTimeMillis()) + " " + message);
         try {
-            Thread.sleep(200);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -46,11 +46,17 @@
       <tabbedpane id="c1f64" binding="tabbedPane">
         <constraints border-constraint="North"/>
         <properties>
+          <alignmentX value="1.0"/>
+          <alignmentY value="1.0"/>
           <autoscrolls value="true"/>
+          <focusCycleRoot value="true"/>
           <focusable value="true"/>
-          <font size="40"/>
-          <minimumSize width="600" height="100"/>
+          <font name="DIN Alternate" size="22"/>
+          <minimumSize width="600" height="500"/>
           <preferredSize width="780" height="500"/>
+          <requestFocusEnabled value="true"/>
+          <tabLayoutPolicy value="0"/>
+          <tabPlacement value="1"/>
         </properties>
         <border type="none"/>
         <children>
@@ -69,9 +75,10 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <focusable value="false"/>
                   <font name="Calibri" size="26"/>
                   <horizontalTextPosition value="2"/>
-                  <text value="&lt;html&gt;&#10;&#9;&lt;body&gt;&#10;&#9;Welcome to MARCS System.&lt;br /&gt; &#10;&#9;M2M-based Anticipatory Reasoning for Contexts and Services System.&lt;br/&gt;&lt;br/&gt;&#10;&#9;MARCS can collect your sensor data, discovery your postential activity,&lt;br/&gt;&#10;&#9;and then recognize your activity.&lt;br/&gt;&lt;br/&gt;&#10;&#10;   &#9;If you use MARCS System first time, please setup with the following order &lt;br /&gt;&#10;   &#9;&#9;1) Collect Data&lt;br /&gt;&#10;   &#9;&#9;2) Train&lt;br /&gt;&#10;   &#9;&#9;3) Recognize &lt;br /&gt;&#10;   &#9;&#9;4) Label &lt;br/&gt;&#10;&lt;/body&gt;&#10;&lt;/html&gt;"/>
+                  <text value="&lt;html&gt;&#10;&#9;&lt;body&gt;&#10;&#9;Welcome to MARCS System.&lt;br /&gt; &#10;&#9;M2M-based Anticipatory Reasoning for Contexts and Services System.&lt;br/&gt;&lt;br/&gt;&#10;&#9;MARCS can collect your sensor data, discovery your postential contexts,&lt;br/&gt;&#10;&#9;and then recognize your activity.&lt;br/&gt;&lt;br/&gt;&#10;&#10;   &#9;If you use MARCS System first time, please setup with the following order &lt;br /&gt;&#10;   &#9;&#9;1) Collect Data&lt;br /&gt;&#10;   &#9;&#9;2) Train&lt;br /&gt;&#10;   &#9;&#9;3) Recognize &lt;br /&gt;&#10;   &#9;&#9;4) Label &lt;br/&gt;&#10;&lt;/body&gt;&#10;&lt;/html&gt;"/>
                 </properties>
               </component>
               <hspacer id="218be">
@@ -134,7 +141,7 @@
                 <properties>
                   <font name="Calibri" size="26"/>
                   <horizontalTextPosition value="2"/>
-                  <text value="&lt;html&gt;&#10;&lt;body&gt;&#10;&#9;Press Start button to start collecting sensor data &lt;br /&gt;&#10;&#9;Press Stop button to stop collecting, then system will do potential activity discovery&#10;&lt;/body&gt;&#10;&lt;/html&gt;"/>
+                  <text value="&lt;html&gt;&#10;&lt;body&gt;&#10;&#9;Press Start button to start collecting sensor data &lt;br /&gt;&#10;&#9;Press Stop button to stop collecting, then system will do potential contexts discovery&#10;&lt;/body&gt;&#10;&lt;/html&gt;"/>
                 </properties>
               </component>
               <vspacer id="15f60">
