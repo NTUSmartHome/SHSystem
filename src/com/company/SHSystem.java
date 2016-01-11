@@ -124,7 +124,7 @@ public class SHSystem {
         for (int i = 0, count = 0; i < classes.length; i++) {
             String label = labelMapping.get(String.valueOf(i));
             if (label != null) {
-                rowData[count][0] = String.valueOf(count);
+                rowData[count][0] = String.valueOf(count+1);
                 rowData[count++][1] = label;
             }
         }
@@ -253,7 +253,7 @@ public class SHSystem {
             labelMap.put(act, s);
             System.out.println(s);
             DefaultTableModel labelMapTableModel = shSystemPanel.getLabelMapTableModel();
-            labelMapTableModel.addRow(new String[]{String.valueOf(labelMapTableModel.getRowCount()), s});
+            labelMapTableModel.addRow(new String[]{String.valueOf(labelMapTableModel.getRowCount()+1), s});
             //shSystemPanel.getLabelMapTable().setValueAt(s, Integer.parseInt(act), 1);
         }
         String message = "<html>" +
