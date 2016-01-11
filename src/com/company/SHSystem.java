@@ -252,7 +252,7 @@ public class SHSystem {
                     null);
             labelMap.put(act, s);
             System.out.println(s);
-            shSystemPanel.getLabelMapTableModel().addRow(new String[]{s});
+            shSystemPanel.getLabelMapTableModel().addRow(new String[]{act, s});
             //shSystemPanel.getLabelMapTable().setValueAt(s, Integer.parseInt(act), 1);
         }
         String message = "<html>" +
