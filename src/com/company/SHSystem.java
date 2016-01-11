@@ -102,7 +102,7 @@ public class SHSystem {
             shSystemPanel.getRecognizeStartButton().setEnabled(true);
             shSystemPanel.getRecognizeStopButton().setEnabled(false);
             isRecognize = false;
-            setMessage("Recognize On");
+            setMessage("Recognize Off");
         });
 
         //Init exit button
