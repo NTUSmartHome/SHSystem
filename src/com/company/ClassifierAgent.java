@@ -231,6 +231,7 @@ public class ClassifierAgent {
 
     public void saveLabelMapping() {
         try {
+            if (labelMapping == null) return;
             FileWriter fw = new FileWriter("LabelMapping.txt");
             Set<Map.Entry<String, String>> content = labelMapping.entrySet();
             for (Map.Entry e : content) {

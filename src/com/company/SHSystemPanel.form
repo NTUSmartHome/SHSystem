@@ -78,7 +78,7 @@
                   <focusable value="false"/>
                   <font name="Calibri" size="26"/>
                   <horizontalTextPosition value="2"/>
-                  <text value="&lt;html&gt;&#10;&#9;&lt;body&gt;&#10;&#9;Welcome to MARCS System.&lt;br /&gt; &#10;&#9;M2M-based Anticipatory Reasoning for Contexts and Services System.&lt;br/&gt;&lt;br/&gt;&#10;&#9;MARCS can collect your sensor data, discovery your postential contexts,&lt;br/&gt;&#10;&#9;and then recognize your activity.&lt;br/&gt;&lt;br/&gt;&#10;&#10;   &#9;If you use MARCS System first time, please setup with the following order &lt;br /&gt;&#10;   &#9;&#9;1) Collect Data&lt;br /&gt;&#10;   &#9;&#9;2) Train&lt;br /&gt;&#10;   &#9;&#9;3) Recognize &lt;br /&gt;&#10;   &#9;&#9;4) Label &lt;br/&gt;&#10;&lt;/body&gt;&#10;&lt;/html&gt;"/>
+                  <text value="&lt;html&gt;&#10;&#9;&lt;body&gt;&#10;&#9;Welcome to MARCS System.&lt;br /&gt; &#10;&#9;M2M-based Anticipatory Reasoning for Contexts and Services System.&lt;br/&gt;&lt;br/&gt;&#10;&#9;MARCS can collect sensor data, discovery your potential contexts,&lt;br/&gt;&#10;&#9;and then recognize your context.&lt;br/&gt;&lt;br/&gt;&#10;&#10;   &#9;If you use MARCS System for the first time, please run the system in the following steps &lt;br /&gt;&#10;   &#9;&#9;1) Collect Data&lt;br /&gt;&#10;   &#9;&#9;2) Train&lt;br /&gt;&#10;   &#9;&#9;3) Recognize &lt;br /&gt;&#10;   &#9;&#9;4) Label &lt;br/&gt;&#10;&lt;/body&gt;&#10;&lt;/html&gt;"/>
                 </properties>
               </component>
               <hspacer id="218be">
@@ -141,7 +141,7 @@
                 <properties>
                   <font name="Calibri" size="26"/>
                   <horizontalTextPosition value="2"/>
-                  <text value="&lt;html&gt;&#10;&lt;body&gt;&#10;&#9;Press Start button to start collecting sensor data &lt;br /&gt;&#10;&#9;Press Stop button to stop collecting, then system will do potential contexts discovery&#10;&lt;/body&gt;&#10;&lt;/html&gt;"/>
+                  <text value="&lt;html&gt;&#10;&lt;body&gt;&#10;&#9;Press Start button to start collecting sensor data &lt;br /&gt;&#10;&#9;Press Stop button to stop collecting, then system will do potential context discovery&#10;&lt;/body&gt;&#10;&lt;/html&gt;"/>
                 </properties>
               </component>
               <vspacer id="15f60">
@@ -151,7 +151,7 @@
               </vspacer>
             </children>
           </grid>
-          <grid id="34e7d" binding="trainTab" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="34e7d" binding="trainTab" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Train"/>
@@ -163,33 +163,13 @@
             <children>
               <component id="5c9f1" class="javax.swing.JButton" binding="trainButton">
                 <constraints>
-                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <font size="26"/>
                   <text value="Train"/>
                 </properties>
               </component>
-              <component id="c0ade" class="javax.swing.JLabel">
-                <constraints>
-                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <font name="Calibri" size="26"/>
-                  <horizontalTextPosition value="2"/>
-                  <text value="&lt;html&gt;&#10;&#9;&lt;font size=&quot;5&quot; color=&quot;red&quot;&gt;Waring! if you don't collect data, you should collect data first&lt;br/&gt;&lt;/font&gt;&#10;&#9;When you press Train button, the system will build a activity recognization model&lt;br /&gt;&#10;&#9;And then, system can recgonize user's activity&lt;br/&gt;&#10;&#9;(First recognizaiton, system will ask you to give a semantic meaning )&#10;&lt;/html&gt;"/>
-                </properties>
-              </component>
-              <vspacer id="2a448">
-                <constraints>
-                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-                </constraints>
-              </vspacer>
-              <vspacer id="30567">
-                <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-                </constraints>
-              </vspacer>
               <hspacer id="7d053">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -200,6 +180,21 @@
                   <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
               </hspacer>
+              <vspacer id="2a448">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <component id="c0ade" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="26"/>
+                  <horizontalTextPosition value="2"/>
+                  <text value="&lt;html&gt;&#10;&#9;&lt;font size=&quot;5&quot; color=&quot;red&quot;&gt;Waring! if you haven't have collected data yet, you should collect data first&lt;br/&gt;&lt;/font&gt;&#10;&#9;When you press Train button, the system will build a context recognization model&lt;br /&gt;&#10;&#9;And then, system can recgonize your context&lt;br/&gt;&#10;&#9;(First recognizaiton, system will ask you to give a semantic meaning )&#10;&lt;/html&gt;"/>
+                </properties>
+              </component>
             </children>
           </grid>
           <grid id="c4cf4" binding="recognizeTab" layout-manager="GridLayoutManager" row-count="4" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -229,7 +224,7 @@
                 <properties>
                   <font name="Calibri" size="26"/>
                   <horizontalTextPosition value="2"/>
-                  <text value="&lt;html&gt;&#10;&#9;&lt;font size=&quot;5&quot; color=&quot;red&quot;&gt;Waring! if you don't train a model, you should train it first&lt;br/&gt;&lt;/font&gt;&#10;&#9;When you press Start button, the system will recognize user' activity&lt;br /&gt;&#10;&#10;&#10;&lt;/html&gt;"/>
+                  <text value="&lt;html&gt;&#10;&#9;&lt;font size=&quot;5&quot; color=&quot;red&quot;&gt;Waring! if you don't train a model, you should train it first&lt;br/&gt;&lt;/font&gt;&#10;&#9;When you press Start button, the system will recognize your context&lt;br /&gt;&#10;&#10;&#10;&lt;/html&gt;"/>
                 </properties>
               </component>
               <vspacer id="e7f71">

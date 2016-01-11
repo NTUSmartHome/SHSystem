@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * Created by MingJe on 2016/1/5.
@@ -22,18 +23,20 @@ public class SHSystemPanel {
     private JPanel collectTab;
     private JPanel recognizeTab;
     private JPanel instructionTab;
-
-
     private JPanel labelTab;
     private JButton collectStopButton;
     private JLabel collectLabel;
     private JButton recognizeStopButton;
     private JScrollPane logScroll;
+    private DefaultTableModel labelMapTableModel;
 
-    public SHSystemPanel() {
 
+    public DefaultTableModel getLabelMapTableModel() {
+        return labelMapTableModel;
     }
-
+    public void setLabelMapTableModel(DefaultTableModel labelMapTableModel) {
+        this.labelMapTableModel = labelMapTableModel;
+    }
     public JScrollPane getLogScroll() {
         return logScroll;
     }

@@ -4,6 +4,7 @@ package com.company;
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -52,7 +53,7 @@ public class SHSystem {
         // Check the state of user env. setting
         int trained = classifierAgent.init();
         if (trained == 1) {
-            JOptionPane.showMessageDialog(frame, "Please setup by following the instruction");
+            JOptionPane.showMessageDialog(frame, "Please set up first");
         } else if (trained == 2) {
             JOptionPane.showMessageDialog(frame, "Don't have a model, you should train it first");
             //Init labelMapping table
@@ -116,19 +117,19 @@ public class SHSystem {
         // Organize the label map table
         String[] columnDef = {"<html><h2>Context", "<html><h2>Semantic label (double click to edit)"};
         Map<String, String> labelMapping = classifierAgent.getLabelMapping();
+        if (labelMapping == null) return;
+
         String[] classes = classifierAgent.getClasses();
-        String[][] rowData = new String[classes.length][2];
-        for (int i = 0; i < classes.length; i++) {
+        String[][] rowData = new String[labelMapping.size()][2];
+        for (int i = 0, count = 0; i < classes.length; i++) {
             String label = labelMapping.get(String.valueOf(i));
             if (label != null) {
-                rowData[i][0] = classes[i];
-                rowData[i][1] = label;
-            } else {
-                rowData[i][0] = classes[i];
-                rowData[i][1] = "";
+                rowData[count][0] = String.valueOf(i);
+                rowData[count++][1] = label;
             }
         }
-        JTable labelMapTable = new JTable(rowData, columnDef) {
+        DefaultTableModel labelMapTableModel = new DefaultTableModel(rowData, columnDef);
+        JTable labelMapTable = new JTable(labelMapTableModel) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 if (column == 0)
@@ -138,7 +139,7 @@ public class SHSystem {
 
         };
         shSystemPanel.setLabelMapTable(labelMapTable);
-
+        shSystemPanel.setLabelMapTableModel(labelMapTableModel);
         //Set Table detail
         labelMapTable.setFont(new Font("Courier New", Font.BOLD, 20));
         labelMapTable.setRowHeight(40);
@@ -242,7 +243,7 @@ public class SHSystem {
         if (s == null) {
             s = (String) JOptionPane.showInputDialog(
                     frame,
-                    "<html>Now recognize activity is" + act +
+                    "<html>What are you doing now" +
                             "<br />Enter your semantic meaning:\n",
                     "Enter semantic meaning",
                     JOptionPane.PLAIN_MESSAGE,
@@ -251,7 +252,8 @@ public class SHSystem {
                     null);
             labelMap.put(act, s);
             System.out.println(s);
-            shSystemPanel.getLabelMapTable().setValueAt(s, Integer.parseInt(act), 1);
+            shSystemPanel.getLabelMapTableModel().addRow(new String[]{s});
+            //shSystemPanel.getLabelMapTable().setValueAt(s, Integer.parseInt(act), 1);
         }
         String message = "<html>" +
                 "<br />Recognized Activity is <h1>" + s + "</h1>";
