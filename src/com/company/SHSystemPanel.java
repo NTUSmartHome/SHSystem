@@ -10,31 +10,34 @@ public class SHSystemPanel {
 
     private JPanel mainPanel;
     private JButton trainButton;
-    private JButton recognizeButton;
+    private JButton recognizeStartButton;
     private JLabel instructionLabel;
     private JButton exitButton;
-    private JButton collectButton;
+    private JButton collectStartButton;
     private JLabel logLabel;
-    private JScrollPane LogScroll;
     private JTable labelMapTable;
     private JPanel bottomPanel;
     private JTabbedPane tabbedPane;
     private JPanel trainTab;
-    private JPanel collentTab;
+    private JPanel collectTab;
     private JPanel recognizeTab;
     private JPanel instructionTab;
 
-    public JLabel getInstructionLabel() {
-        return instructionLabel;
-    }
+
+    private JPanel labelTab;
+    private JButton collectStopButton;
+    private JLabel collectLabel;
+    private JButton recognizeStopButton;
+    private JScrollPane logScroll;
 
     public SHSystemPanel() {
 
     }
 
     public JScrollPane getLogScroll() {
-        return LogScroll;
+        return logScroll;
     }
+
     public JPanel getMainPanel() {
         return mainPanel;
     }
@@ -43,8 +46,8 @@ public class SHSystemPanel {
         return trainButton;
     }
 
-    public JButton getRecognizeButton() {
-        return recognizeButton;
+    public JButton getRecognizeStartButton() {
+        return recognizeStartButton;
     }
 
     public JTable getLabelMapTable() {
@@ -59,8 +62,20 @@ public class SHSystemPanel {
         return logLabel;
     }
 
-    public JButton getCollectButton() {
-        return collectButton;
+    public JButton getCollectStartButton() {
+        return collectStartButton;
+    }
+
+    public JPanel getLabelTab() {
+        return labelTab;
+    }
+
+    public JButton getCollectStopButton() {
+        return collectStopButton;
+    }
+
+    public JButton getRecognizeStopButton() {
+        return recognizeStopButton;
     }
 
     public void setLabelMapTable(JTable labelMapTable) {
@@ -71,8 +86,6 @@ public class SHSystemPanel {
 
 
     }
-
-
 
 
 }

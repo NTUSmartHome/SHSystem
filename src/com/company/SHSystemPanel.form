@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.company.SHSystemPanel">
   <grid id="27dc6" binding="mainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="656" height="794"/>
+      <xy x="20" y="20" width="656" height="676"/>
     </constraints>
     <properties>
       <minimumSize width="600" height="398"/>
@@ -10,42 +10,37 @@
     </properties>
     <border type="none"/>
     <children>
-      <grid id="cbde8" binding="bottomPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
+      <grid id="cbde8" binding="bottomPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="South"/>
         <properties>
-          <preferredSize width="80" height="200"/>
+          <preferredSize width="80" height="300"/>
         </properties>
         <border type="none"/>
         <children>
-          <scrollpane id="5a3ca" binding="LogScroll">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="-1" height="200"/>
-                <maximum-size width="-1" height="200"/>
-              </grid>
-            </constraints>
-            <properties/>
-            <border type="none"/>
-            <children>
-              <component id="d360e" class="javax.swing.JLabel" binding="logLabel">
-                <constraints/>
-                <properties>
-                  <background color="-1"/>
-                  <opaque value="true"/>
-                  <text value="&lt;html&gt;Label"/>
-                </properties>
-              </component>
-            </children>
-          </scrollpane>
           <component id="f5837" class="javax.swing.JButton" binding="exitButton">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
+            <constraints border-constraint="South"/>
             <properties>
               <text value="Exit"/>
             </properties>
           </component>
+          <scrollpane id="c36c4" binding="logScroll">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <preferredSize width="-1" height="300"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="61444" class="javax.swing.JLabel" binding="logLabel">
+                <constraints/>
+                <properties>
+                  <background color="-1"/>
+                  <opaque value="true"/>
+                  <text value="&lt;html&gt;&#10;log:"/>
+                  <verticalAlignment value="1"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
         </children>
       </grid>
       <tabbedpane id="c1f64" binding="tabbedPane">
@@ -53,78 +48,226 @@
         <properties>
           <autoscrolls value="true"/>
           <focusable value="true"/>
-          <font size="44"/>
-          <minimumSize width="267" height="600"/>
-          <preferredSize width="780" height="600"/>
+          <font size="40"/>
+          <minimumSize width="600" height="100"/>
+          <preferredSize width="780" height="500"/>
         </properties>
         <border type="none"/>
         <children>
-          <grid id="a4a24" binding="instructionTab" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="a4a24" binding="instructionTab" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Instruction "/>
             </constraints>
             <properties>
-              <preferredSize width="800" height="120"/>
+              <preferredSize width="800" height="600"/>
             </properties>
             <border type="none"/>
             <children>
-              <component id="53dc4" class="javax.swing.JLabel" binding="instructionLabel">
-                <constraints border-constraint="Center"/>
+              <component id="12700" class="javax.swing.JLabel" binding="instructionLabel">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
                 <properties>
-                  <font name="Calibri" size="24"/>
+                  <font name="Calibri" size="26"/>
                   <horizontalTextPosition value="2"/>
-                  <text value="&lt;html&gt;Welcome to MCHESS System &lt;br /&gt; &#10; 1) Train, if you want have a new model&lt;br /&gt;&#10; 2) Recognize, if you already have a model, and you want recognize your activity&lt;/html&gt;"/>
+                  <text value="&lt;html&gt;&#10;&#9;&lt;body&gt;&#10;&#9;Welcome to MARCS System.&lt;br /&gt; &#10;&#9;M2M-based Anticipatory Reasoning for Contexts and Services System.&lt;br/&gt;&lt;br/&gt;&#10;&#9;MARCS can collect your sensor data, discovery your postential activity,&lt;br/&gt;&#10;&#9;and then recognize your activity.&lt;br/&gt;&lt;br/&gt;&#10;&#10;   &#9;If you use MARCS System first time, please setup with the following order &lt;br /&gt;&#10;   &#9;&#9;1) Collect Data&lt;br /&gt;&#10;   &#9;&#9;2) Train&lt;br /&gt;&#10;   &#9;&#9;3) Recognize &lt;br /&gt;&#10;   &#9;&#9;4) Label &lt;br/&gt;&#10;&lt;/body&gt;&#10;&lt;/html&gt;"/>
                 </properties>
               </component>
+              <hspacer id="218be">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <hspacer id="cb5e4">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
             </children>
           </grid>
-          <grid id="7a142" binding="collentTab" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="7a142" binding="collectTab" layout-manager="GridLayoutManager" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Collect Data"/>
             </constraints>
-            <properties/>
+            <properties>
+              <preferredSize width="112" height="600"/>
+            </properties>
             <border type="none"/>
             <children>
-              <component id="51a5c" class="javax.swing.JButton" binding="collectButton">
-                <constraints border-constraint="South"/>
+              <component id="2cef8" class="javax.swing.JButton" binding="collectStartButton">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="2" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
                 <properties>
-                  <text value="Collect Data"/>
+                  <font size="26"/>
+                  <horizontalAlignment value="0"/>
+                  <text value="Start"/>
+                  <verticalAlignment value="3"/>
                 </properties>
               </component>
+              <vspacer id="f27b4">
+                <constraints>
+                  <grid row="2" column="0" row-span="3" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="db9c5">
+                <constraints>
+                  <grid row="2" column="1" row-span="3" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <component id="62e54" class="javax.swing.JButton" binding="collectStopButton">
+                <constraints>
+                  <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <enabled value="false"/>
+                  <font size="26"/>
+                  <text value="Stop"/>
+                </properties>
+              </component>
+              <component id="a415a" class="javax.swing.JLabel" binding="collectLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="26"/>
+                  <horizontalTextPosition value="2"/>
+                  <text value="&lt;html&gt;&#10;&lt;body&gt;&#10;&#9;Press Start button to start collecting sensor data &lt;br /&gt;&#10;&#9;Press Stop button to stop collecting, then system will do potential activity discovery&#10;&lt;/body&gt;&#10;&lt;/html&gt;"/>
+                </properties>
+              </component>
+              <vspacer id="15f60">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
             </children>
           </grid>
-          <grid id="34e7d" binding="trainTab" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="34e7d" binding="trainTab" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Train"/>
             </constraints>
             <properties>
-              <preferredSize width="88" height="500"/>
+              <preferredSize width="88" height="600"/>
             </properties>
             <border type="none"/>
             <children>
-              <component id="7e522" class="javax.swing.JButton" binding="trainButton">
-                <constraints border-constraint="South"/>
+              <component id="5c9f1" class="javax.swing.JButton" binding="trainButton">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
                 <properties>
+                  <font size="26"/>
                   <text value="Train"/>
+                </properties>
+              </component>
+              <component id="c0ade" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="26"/>
+                  <horizontalTextPosition value="2"/>
+                  <text value="&lt;html&gt;&#10;&#9;&lt;font size=&quot;5&quot; color=&quot;red&quot;&gt;Waring! if you don't collect data, you should collect data first&lt;br/&gt;&lt;/font&gt;&#10;&#9;When you press Train button, the system will build a activity recognization model&lt;br /&gt;&#10;&#9;And then, system can recgonize user's activity&lt;br/&gt;&#10;&#9;(First recognizaiton, system will ask you to give a semantic meaning )&#10;&lt;/html&gt;"/>
+                </properties>
+              </component>
+              <vspacer id="2a448">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="30567">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <hspacer id="7d053">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <hspacer id="ce19e">
+                <constraints>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+            </children>
+          </grid>
+          <grid id="c4cf4" binding="recognizeTab" layout-manager="GridLayoutManager" row-count="4" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Recognize"/>
+            </constraints>
+            <properties>
+              <preferredSize width="100" height="600"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="1c46e" class="javax.swing.JButton" binding="recognizeStartButton">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="26"/>
+                  <label value="Start"/>
+                  <text value="Start"/>
+                </properties>
+              </component>
+              <component id="f5dfc" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Calibri" size="26"/>
+                  <horizontalTextPosition value="2"/>
+                  <text value="&lt;html&gt;&#10;&#9;&lt;font size=&quot;5&quot; color=&quot;red&quot;&gt;Waring! if you don't train a model, you should train it first&lt;br/&gt;&lt;/font&gt;&#10;&#9;When you press Start button, the system will recognize user' activity&lt;br /&gt;&#10;&#10;&#10;&lt;/html&gt;"/>
+                </properties>
+              </component>
+              <vspacer id="e7f71">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                    <preferred-size width="-1" height="20"/>
+                  </grid>
+                </constraints>
+              </vspacer>
+              <vspacer id="37047">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <hspacer id="ba429">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <hspacer id="72874">
+                <constraints>
+                  <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <component id="609eb" class="javax.swing.JButton" binding="recognizeStopButton">
+                <constraints>
+                  <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="26"/>
+                  <label value="Stop"/>
+                  <text value="Stop"/>
                 </properties>
               </component>
             </children>
           </grid>
-          <grid id="c4cf4" binding="recognizeTab" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="c868c" binding="labelTab" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>
-              <tabbedpane title="Recognize"/>
+              <tabbedpane title="Label"/>
             </constraints>
-            <properties/>
+            <properties>
+              <preferredSize width="24" height="600"/>
+            </properties>
             <border type="none"/>
-            <children>
-              <component id="52b05" class="javax.swing.JButton" binding="recognizeButton" default-binding="true">
-                <constraints border-constraint="South"/>
-                <properties>
-                  <label value="Recognize"/>
-                  <text value="Recognize"/>
-                </properties>
-              </component>
-            </children>
+            <children/>
           </grid>
         </children>
       </tabbedpane>
