@@ -11,15 +11,21 @@ public class SHSystemPanel {
     private JPanel mainPanel;
     private JButton trainButton;
     private JButton recognizeButton;
-    private JLabel messageLabel;
+    private JLabel instructionLabel;
     private JButton exitButton;
     private JButton collectButton;
     private JLabel logLabel;
     private JScrollPane LogScroll;
     private JTable labelMapTable;
     private JPanel bottomPanel;
-    public JLabel getMessageLabel() {
-        return messageLabel;
+    private JTabbedPane tabbedPane;
+    private JPanel trainTab;
+    private JPanel collentTab;
+    private JPanel recognizeTab;
+    private JPanel instructionTab;
+
+    public JLabel getInstructionLabel() {
+        return instructionLabel;
     }
 
     public SHSystemPanel() {

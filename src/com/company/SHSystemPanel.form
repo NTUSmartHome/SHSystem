@@ -2,75 +2,25 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.company.SHSystemPanel">
   <grid id="27dc6" binding="mainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="504" height="400"/>
+      <xy x="20" y="20" width="656" height="794"/>
     </constraints>
-    <properties/>
+    <properties>
+      <minimumSize width="600" height="398"/>
+      <preferredSize width="850" height="750"/>
+    </properties>
     <border type="none"/>
     <children>
-      <grid id="cbde8" binding="bottomPanel" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="cbde8" binding="bottomPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints border-constraint="South"/>
-        <properties/>
+        <properties>
+          <preferredSize width="80" height="200"/>
+        </properties>
         <border type="none"/>
         <children>
-          <component id="7e522" class="javax.swing.JButton" binding="trainButton">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Train"/>
-            </properties>
-          </component>
-          <component id="52b05" class="javax.swing.JButton" binding="recognizeButton" default-binding="true">
-            <constraints>
-              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <label value="Recognize"/>
-              <text value="Recognize"/>
-            </properties>
-          </component>
-          <component id="51a5c" class="javax.swing.JButton" binding="collectButton">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Collect Data"/>
-            </properties>
-          </component>
-          <component id="f5837" class="javax.swing.JButton" binding="exitButton">
-            <constraints>
-              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Exit"/>
-            </properties>
-          </component>
-        </children>
-      </grid>
-      <grid id="2b32e" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
-        <constraints border-constraint="Center"/>
-        <properties/>
-        <border type="none"/>
-        <children>
-          <component id="53dc4" class="javax.swing.JLabel" binding="messageLabel">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <minimum-size width="500" height="200"/>
-                <preferred-size width="500" height="200"/>
-                <maximum-size width="500" height="200"/>
-              </grid>
-            </constraints>
-            <properties>
-              <font name="Calibri" size="24"/>
-              <horizontalTextPosition value="2"/>
-              <text value="Label"/>
-            </properties>
-          </component>
           <scrollpane id="5a3ca" binding="LogScroll">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="-1" height="200"/>
                 <maximum-size width="-1" height="200"/>
               </grid>
@@ -88,8 +38,96 @@
               </component>
             </children>
           </scrollpane>
+          <component id="f5837" class="javax.swing.JButton" binding="exitButton">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Exit"/>
+            </properties>
+          </component>
         </children>
       </grid>
+      <tabbedpane id="c1f64" binding="tabbedPane">
+        <constraints border-constraint="North"/>
+        <properties>
+          <autoscrolls value="true"/>
+          <focusable value="true"/>
+          <font size="44"/>
+          <minimumSize width="267" height="600"/>
+          <preferredSize width="780" height="600"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="a4a24" binding="instructionTab" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="Instruction "/>
+            </constraints>
+            <properties>
+              <preferredSize width="800" height="120"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="53dc4" class="javax.swing.JLabel" binding="instructionLabel">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <font name="Calibri" size="24"/>
+                  <horizontalTextPosition value="2"/>
+                  <text value="&lt;html&gt;Welcome to MCHESS System &lt;br /&gt; &#10; 1) Train, if you want have a new model&lt;br /&gt;&#10; 2) Recognize, if you already have a model, and you want recognize your activity&lt;/html&gt;"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="7a142" binding="collentTab" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="Collect Data"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="51a5c" class="javax.swing.JButton" binding="collectButton">
+                <constraints border-constraint="South"/>
+                <properties>
+                  <text value="Collect Data"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="34e7d" binding="trainTab" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="Train"/>
+            </constraints>
+            <properties>
+              <preferredSize width="88" height="500"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="7e522" class="javax.swing.JButton" binding="trainButton">
+                <constraints border-constraint="South"/>
+                <properties>
+                  <text value="Train"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="c4cf4" binding="recognizeTab" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="Recognize"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="52b05" class="javax.swing.JButton" binding="recognizeButton" default-binding="true">
+                <constraints border-constraint="South"/>
+                <properties>
+                  <label value="Recognize"/>
+                  <text value="Recognize"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </tabbedpane>
     </children>
   </grid>
 </form>
