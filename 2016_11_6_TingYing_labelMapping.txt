@@ -1,0 +1,11 @@
+1 PlayComputer
+2 PlayPad
+3 Read
+4 Sweep
+5 Sleep
+6 WashDishes
+7 WatchTV
+8 Meal
+9 Exercise
+10 Walk
+11 Other

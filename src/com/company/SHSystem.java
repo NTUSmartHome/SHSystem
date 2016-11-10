@@ -39,7 +39,7 @@ public class SHSystem {
             frame.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent e) {
-                    classifierAgent.saveLabelMapping();
+                    //classifierAgent.saveLabelMapping();
                 }
             });
         });

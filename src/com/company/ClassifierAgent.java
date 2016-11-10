@@ -38,6 +38,9 @@ public class ClassifierAgent {
             trainState = 0;
             // Read training data
             Instances trainingSet = readTrainingData(attributes);
+//            for(Attribute node: attributes){
+//                System.out.println(attributes);
+//            }
             cModel = new BayesNet();
             trainState = 20;
             // Training
@@ -83,12 +86,13 @@ public class ClassifierAgent {
     public Instances readTrainingData(ArrayList<Attribute> attributes) throws Exception {
         Instances trainingSet = new Instances("train", attributes, 0);
         trainingSet.setClassIndex(trainingSet.numAttributes() - 1);
-        FileReader fr = new FileReader(new File("trainingData.txt"));
+        FileReader fr = new FileReader(new File("2016_11_6_TingYing_ambient_wearable_BNtrain.txt"));
         BufferedReader br = new BufferedReader(fr);
         String dataString;
         while ((dataString = br.readLine()) != null) {
             String[] data = dataString.split("\\s+");
-            Instance inst = new DenseInstance(trainingSet.numAttributes() + 1);
+//            Instance inst = new DenseInstance(trainingSet.numAttributes() + 1);
+            Instance inst = new DenseInstance(trainingSet.numAttributes());
             int i = 0;
             for (; i < data.length - 1; i++) {
                 try {
@@ -169,7 +173,7 @@ public class ClassifierAgent {
 
     public Map<String, String> labelMappingReader() {
         try {
-            FileReader fr = new FileReader(new File("LabelMapping.txt"));
+            FileReader fr = new FileReader(new File("2016_11_6_TingYing_labelMapping.txt"));
             BufferedReader br = new BufferedReader(fr);
             Map<String, String> labelMapping = new HashMap<>();
             String line;
@@ -195,7 +199,7 @@ public class ClassifierAgent {
 
     public ArrayList<Attribute> readAtt() throws IOException {
 
-        FileReader fr = new FileReader("featureConfig.txt");
+        FileReader fr = new FileReader("2016_11_6_TingYing_ambient_wearable_featureConfig.txt");
         BufferedReader br = new BufferedReader(fr);
         ArrayList<Attribute> attributes = new ArrayList<>();
         String att;
@@ -229,6 +233,7 @@ public class ClassifierAgent {
         return attributes;
     }
 
+
     public void saveLabelMapping() {
         try {
             if (labelMapping == null) return;
@@ -242,6 +247,7 @@ public class ClassifierAgent {
             e.printStackTrace();
         }
     }
+
 
     public Map<String, String> getLabelMapping() {
         return labelMapping;
